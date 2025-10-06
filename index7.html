@@ -76,11 +76,32 @@
   </style>
 
   <script>
-    // Redirect after 5 seconds
+    // Redirect after finish
     window.onload = function () {
-      setTimeout(function () {
-        window.location.href = "index8.html"; // <-- Change destination here
-      }, 5000);
+      const loading = document.getElementById("loading");
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxvNFq5pskjcGA_aJkSdoDaN5AjLCj0slwuS_ADZaE8vhfzman_tOJKVf7i400ZSS6Y/exec";
+      
+        // Collect all answers from localStorage
+        const answers = new FormData();
+        answers.append("question1", localStorage.getItem("question1") || "");
+        answers.append("question2", localStorage.getItem("question2") || "");
+        answers.append("question3", localStorage.getItem("question3") || "");
+        answers.append("question4", localStorage.getItem("question4") || "");
+        answers.append("question5", localStorage.getItem("question5") || "");
+    
+        fetch(scriptURL, {
+            method: "POST",
+            body: answers
+          })
+          .then(res => res.json())
+          .then(res => {
+            console.log("Success!", res);
+            // go to next page after saving
+            window.location.href = "index8.html";
+          })
+          .catch(err =>{
+            alert("Error: " + err);
+          });
     };
   </script>
 </head>
@@ -97,3 +118,4 @@
   </div>
 </body>
 </html>
+
