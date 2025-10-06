@@ -127,47 +127,16 @@ This is a sample question Question 5 of 5
 </body>
 <script>
   const form = document.getElementById("questionForm");
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxvNFq5pskjcGA_aJkSdoDaN5AjLCj0slwuS_ADZaE8vhfzman_tOJKVf7i400ZSS6Y/exec";
-  const loading = document.getElementById("loading");
-  const button = form.querySelector("button");
-        // show loading + disable button
 
   form.addEventListener("submit", function(e) {
     
     e.preventDefault();
     
-    // Save last answer
     const formData = new FormData(form);
     const answer = formData.get("question5");
     localStorage.setItem("question5", answer);
-    
-    // Collect all answers from localStorage
-    const answers = new FormData();
-    answers.append("question1", localStorage.getItem("question1") || "");
-    answers.append("question2", localStorage.getItem("question2") || "");
-    answers.append("question3", localStorage.getItem("question3") || "");
-    answers.append("question4", localStorage.getItem("question4") || "");
-    answers.append("question5", localStorage.getItem("question5") || "");
-
-    loading.style.display = "block";
-    button.disabled = true;
-
-    fetch(scriptURL, {
-        method: "POST",
-        body: answers
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log("Success!", res);
-        // go to next page after saving
-        window.location.href = "index7.html";
-      })
-      .catch(err =>{
-        alert("Error: " + err);
-        loading.style.display = "none";
-        button.disabled = false;
-      });
     });
   </script>
 </html>
+
 
